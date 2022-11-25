@@ -1,8 +1,8 @@
 # Hello
 import mysql.connector as connector
 
-user = "nara"
-password = "nara"
+user = "mysql"
+password = "1234"
 
 connection = connector.connect(
     host="localhost",
