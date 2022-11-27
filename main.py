@@ -1,5 +1,12 @@
 # Hello
 import mysql.connector as connector
+from os import system, name
+from time import sleep
+
+
+user = "mysql"
+password = "1234"
+
 
 connection = connector.connect(
     host="localhost",
@@ -54,7 +61,17 @@ items = {
 # Main
 
 
+def clear(time):
+    sleep(time)
+
+    if name == 'nt':
+        _ = system('cls')
+    else:
+        _ = system('clear')
+
+
 def insert(choice):
+    clear(.7)
     try:
         quantity = input("Enter the number of items: ")
 
@@ -71,13 +88,15 @@ def insert(choice):
 
         connection.commit()
 
-        print(db.rowcount, " was inserted.")
+        print(db.rowcount, " record was inserted.")
 
         total = data["quan"] * data["price"]
 
         print("Success!" + " Your Total is " + str(total))
         print("You chose " + items[choice]
               ["item_name"] + " Happy eating !!!! : ))))")
+
+        clear(2)
 
     except:
         print('An exception occurred please try again!')
@@ -86,29 +105,31 @@ def insert(choice):
 
 
 def main():
-    print("Welcome to Vinayak Bakery...")
-    print("Please Enter a valid Item to purchase: ")
+    while True:
 
-    print("1. Ladoo")
-    print("2. Jalebi")
-    print("3. Samosa")
-    print("4. Chips")
-    print("Enter e to exit")
-    print("------------------")
+        print("Welcome to Vinayak Bakery...")
+        print("Please Enter a valid Item to purchase: ")
 
-    ans = input("Choice: ")
+        print("1. Ladoo")
+        print("2. Jalebi")
+        print("3. Samosa")
+        print("4. Chips")
+        print("Enter e to exit")
+        print("------------------")
 
-    if ans.lower() == "e":
-        print("Bye!")
-        return
+        ans = input("Choice: ")
 
-    elif ans == "1" or ans == '2' or ans == '3' or ans == '4':
-        insert(ans)
+        if ans.lower() == "e":
+            print("Bye!")
+            return
 
-    else:
-        print("Please Enter a valid input from 1-4 or [E/e] to exit!")
+        elif ans == "1" or ans == '2' or ans == '3' or ans == '4':
+            insert(ans)
+
+        else:
+            print("Please Enter a valid input from 1-4 or [E/e] to exit!")
+            print()
         print()
-        main()
 
 
 main()
