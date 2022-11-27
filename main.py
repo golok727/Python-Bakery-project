@@ -3,9 +3,9 @@ import mysql.connector as connector
 from os import system, name
 from time import sleep
 
-
-user = "mysql"
-password = "1234"
+clearScreen = True
+user = "nara"
+password = "nara"
 
 
 connection = connector.connect(
@@ -71,7 +71,9 @@ def clear(time):
 
 
 def insert(choice):
-    clear(.7)
+    if clearScreen:
+        clear(.7)
+
     try:
         quantity = input("Enter the number of items: ")
 
