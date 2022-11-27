@@ -10,8 +10,8 @@ password = "1234"
 
 connection = connector.connect(
     host="localhost",
-    user="nara",
-    password="nara",
+    user=user,
+    password=password,
     database="bakery"
 )
 
