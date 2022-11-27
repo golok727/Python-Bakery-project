@@ -98,7 +98,8 @@ def insert(choice):
         print("You chose " + items[choice]
               ["item_name"] + " Happy eating !!!! : ))))")
 
-        clear(2)
+        if clearScreen:
+            clear(2)
 
     except:
         print('An exception occurred please try again!')
