@@ -4,8 +4,8 @@ from os import system, name
 from time import sleep
 
 clearScreen = True
-user = "nara"
-password = "nara"
+user = "mysql"
+password = "1234"
 
 
 connection = connector.connect(
