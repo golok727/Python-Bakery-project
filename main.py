@@ -4,8 +4,8 @@ from os import system, name
 from time import sleep
 
 clearScreen = True
-user = "nara"
-password = "nara"
+user = "mysql"
+password = "1234"
 
 
 connection = connector.connect(
@@ -19,18 +19,14 @@ connection = connector.connect(
 db = connection.cursor(buffered=True)
 
 
-db.execute("SELECT * from item_records;")
+def list_items():
+    db.execute("SELECT * from item_records;")
+    items = db.fetchall()
 
-
-# print(items)
-# for item in items:
-#     for col in item:
-#         print(" | " + str(col), end=" ")
-#     print()
-# [
-#     (1, 'Jalebi', 7, datetime.date(2022, 11, 30), 10),
-#     (2, 'Ladoo', 10, datetime.date(2022, 11, 30), 7)
-# ]
+    for item in items:
+        for col in item:
+            print(" | " + str(col), end=" ")
+        print()
 
 
 items = {
@@ -62,6 +58,8 @@ items = {
 
 
 def clear(time):
+    if not clearScreen:
+        return
     sleep(time)
 
     if name == 'nt':
@@ -71,8 +69,7 @@ def clear(time):
 
 
 def insert(choice):
-    if clearScreen:
-        clear(.7)
+    clear(.7)
 
     try:
         quantity = input("Enter the number of items: ")
@@ -98,8 +95,7 @@ def insert(choice):
         print("You chose " + items[choice]
               ["item_name"] + " Happy eating !!!! : ))))")
 
-        if clearScreen:
-            clear(2)
+        clear(.7)
 
     except:
         print('An exception occurred please try again!')
@@ -108,31 +104,55 @@ def insert(choice):
 
 
 def main():
+
     while True:
-
         print("Welcome to Vinayak Bakery...")
-        print("Please Enter a valid Item to purchase: ")
 
-        print("1. Ladoo")
-        print("2. Jalebi")
-        print("3. Samosa")
-        print("4. Chips")
-        print("Enter e to exit")
-        print("------------------")
+        print("1. Add Item")
+        print("2. List Items")
+        print("[e/E] to Exit")
 
-        ans = input("Choice: ")
+        menu_mode = input("Choose your mode: ")
 
-        if ans.lower() == "e":
+        if menu_mode == "1":
+            clear(.7)
+            print("Please Enter a valid Item to purchase: ")
+
+            print("1. Ladoo")
+            print("2. Jalebi")
+            print("3. Samosa")
+            print("4. Chips")
+            print("Enter e to exit")
+            print("-----------------------")
+
+            ans = input("Choice: ")
+
+            if ans.lower() == "e":
+                print("Bye!")
+                return
+
+            elif ans == "1" or ans == '2' or ans == '3' or ans == '4':
+                insert(ans)
+
+            else:
+                print("Please Enter a valid input from 1-4 or [E/e] to exit!")
+                print()
+            print()
+
+        elif menu_mode == "2":
+            clear(.7)
+            print("List of Items:")
+            print(".............................")
+            list_items()
+            print()
+            print("<=============================>")
+
+        elif menu_mode.lower() == "e":
             print("Bye!")
             return
 
-        elif ans == "1" or ans == '2' or ans == '3' or ans == '4':
-            insert(ans)
-
         else:
-            print("Please Enter a valid input from 1-4 or [E/e] to exit!")
-            print()
-        print()
+            print("Please Enter a valid input from 1-2 or [E/e] to exit!")
 
 
 main()
